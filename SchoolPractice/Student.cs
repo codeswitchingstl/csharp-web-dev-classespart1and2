@@ -27,24 +27,57 @@ namespace SchoolPractice
             nextStudentId++;
         }
 
-        // TODO: Complete the AddGrade method.
         public void AddGrade(int courseCredits, double grade)
         {
-            // Update the appropriate properties: NumberOfCredits, Gpa
+            double totalQualityScore = Gpa * NumberOfCredits;
+            totalQualityScore += courseCredits * grade;
+            NumberOfCredits += courseCredits;
+            Gpa = totalQualityScore / NumberOfCredits;
         }
 
-        //TODO: Complete the GetGradeLevel method here:
         public string GetGradeLevel(int credits)
         {
-            // Determine the grade level of the student based on NumberOfCredits
-            return "grade level tbd";
+            if (credits <= 29)
+            {
+                return "freshman";
+            }
+            else if (credits <= 59)
+            {
+                return "sophomore";
+            }
+            else if (credits <= 89)
+            {
+                return "junior";
+            }
+            else
+            {
+                return "senior";
+            }
+        }
+        public override string ToString()
+        {
+            return Name + " (Credits: " + NumberOfCredits + ", GPA: " + Gpa + ")";
         }
 
-        // TODO: Add your custom 'ToString' method here. Make sure it returns a well-formatted string rather
-        //  than just the class fields.
+        public override bool Equals(object obj)
+        {
+            if (obj == this)
+            {
+                return true;
+            }
 
-        // TODO: Add your custom 'Equals' method here. Consider which fields should match in order to call two
-        //  Student objects equal.
+            if (obj == null)
+            {
+                return false;
+            }
 
+            if (obj.GetType() != GetType())
+            {
+                return false;
+            }
+
+            Student studentObj = obj as Student;
+            return StudentId == studentObj.StudentId;
+        }
     }
 }
